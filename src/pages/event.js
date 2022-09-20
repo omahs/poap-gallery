@@ -336,10 +336,15 @@ function tokenDetails(event, csv_data) {
     { value: event.start_date, key: 'Start date' },
     { value: event.end_date, key: 'End date' },
     { value: event.event_url, key: 'Website', render: (value) => {
-      let host = new URL(value).hostname
-      return (
-      <a href={value} className="href" target="_blank" rel="noopener noreferrer">{host}</a>
-      )
+      try {
+          let host = new URL(value).hostname;
+          return (
+              <a href={value} className="href" target="_blank" rel="noopener noreferrer">{host}</a>
+          )
+      } catch (e) {
+          return <></>
+      }
+
     }},
   ];
   if (Array.isArray(csv_data) && csv_data.length > 1) {
